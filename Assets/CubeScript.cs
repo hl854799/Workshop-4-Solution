@@ -6,9 +6,20 @@ public class CubeScript : MonoBehaviour
     public Shader shader;
     public Texture texture;
 
-    // Use this for initialization
-    void Start()
-    {
+    // Run OnEnable only to let the students test the diferent options.
+
+    void OnEnable() {
+
+        // First remove Componenets if other scrips had add them.
+        // This is only for students to enable diferent shaders.
+        if (this.gameObject.GetComponent<MeshFilter>()!= null){
+            
+            DestroyImmediate(this.gameObject.GetComponent<MeshFilter>());
+        }
+        if (this.gameObject.GetComponent<MeshRenderer>()!= null){
+            DestroyImmediate(this.gameObject.GetComponent<MeshRenderer>());
+        }
+
         // Add a MeshFilter component to this entity. This essentially comprises of a
         // mesh definition, which in this example is a collection of vertices, colours 
         // and triangles (groups of three vertices). 
@@ -107,7 +118,7 @@ public class CubeScript : MonoBehaviour
             Color.yellow,
 
             Color.yellow, // Right
-            Color.yellow,
+            Color.yellow, // Task 4 Color.black 
             Color.yellow,
             Color.yellow,
             Color.yellow,
