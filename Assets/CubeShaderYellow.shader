@@ -33,7 +33,7 @@ Shader "Unlit/CubeShaderYellow"
 			// Implementation of the fragment shader
 			fixed4 frag(vertOut v) : SV_Target
 			{
-				// Task 2 -- The next funcition works with Color in G,R,B and Alpha Channels
+				// Task 2 -- the next line outputs the color for given red, green, blue and alpha channels
 				return float4(1.0f, 1.0f, 0.0f, 0.5f);
 			}
 			ENDCG

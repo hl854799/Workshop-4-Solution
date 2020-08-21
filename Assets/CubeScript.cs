@@ -6,29 +6,31 @@ public class CubeScript : MonoBehaviour
     public Shader shader;
     public Texture texture;
 
-    // Run OnEnable only to let the students test the diferent options.
-
-    void OnEnable() {
-
-        // First remove Componenets if other scrips had add them.
-        // This is only for students to enable diferent shaders.
-        if (this.gameObject.GetComponent<MeshFilter>()!= null){
-            
-            DestroyImmediate(this.gameObject.GetComponent<MeshFilter>());
-        }
-        if (this.gameObject.GetComponent<MeshRenderer>()!= null){
-            DestroyImmediate(this.gameObject.GetComponent<MeshRenderer>());
+    // Use Awake() instead of Start() to run code even if the script is not initially enabled
+    void Awake()
+    {
+        if (this.gameObject.GetComponent<MeshFilter>() == null)
+        {
+            // Add a MeshFilter component to this entity. This essentially comprises of a
+            // mesh definition, which in this example is a collection of vertices, colours 
+            // and triangles (groups of three vertices). 
+            MeshFilter cubeMesh = this.gameObject.AddComponent<MeshFilter>();
+            cubeMesh.mesh = this.CreateCubeMesh();
         }
 
-        // Add a MeshFilter component to this entity. This essentially comprises of a
-        // mesh definition, which in this example is a collection of vertices, colours 
-        // and triangles (groups of three vertices). 
-        MeshFilter cubeMesh = this.gameObject.AddComponent<MeshFilter>();
-        cubeMesh.mesh = this.CreateCubeMesh();
+        if (this.gameObject.GetComponent<MeshRenderer>() == null)
+        {
+            // Add a MeshRenderer component. This component actually renders the mesh that
+            // is defined by the MeshFilter component.
+            this.gameObject.AddComponent<MeshRenderer>();
+        }
+    }
 
-        // Add a MeshRenderer component. This component actually renders the mesh that
-        // is defined by the MeshFilter component.
-        MeshRenderer renderer = this.gameObject.AddComponent<MeshRenderer>();
+    // Using OnEnable to let students test the different shaders on the same object
+    // at runtime (multiple script instances).
+    void OnEnable()
+    {
+        MeshRenderer renderer = this.gameObject.GetComponent<MeshRenderer>();
         renderer.material.shader = this.shader;
         renderer.material.mainTexture = this.texture;
     }
